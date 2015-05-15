@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 server="irc.freenode.net"
 port=6667
 nick="Rezeptionistin"
-ircchan="#noqqeblafloo"
+ircchan="#k4cg"
 
 if sys.hexversion > 0x03000000:
     raw_input = input
