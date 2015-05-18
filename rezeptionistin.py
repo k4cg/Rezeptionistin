@@ -44,9 +44,6 @@ def geturltitle(message):
 
 
 # IRC Handlers
-@irc.on_join
-def on_join(self, nick, host, channel):
-    self.msg("#" + channel, ':Ich war nur kurz weg. Aber hier bin ich wieder.')
 
 @irc.on_msg
 def on_msg(self, nick, host, channel, message):
@@ -61,7 +58,7 @@ def on_msg(self, nick, host, channel, message):
         temp = netcat("2001:a60:f073:0:21a:92ff:fe50:bdfc", 31337, "9001")
         self.msg(channel, ':Die aktuelle Temeratur in der K4CG ist{temp} Grad'.format(temp=temp) )
     if message.lower().startswith('!gt'):
-        self.msg(channel, ':Ach halts Maul.')
+        self.msg(channel, ":Ich lebe noch, {nick}".format(nick=nick))
     if message.lower().startswith('!np'):
         self.msg(channel, ':Das funktioniert noch nicht.')
     if message.startswith('http://'):
