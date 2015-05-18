@@ -39,7 +39,7 @@ def geturltitle(message):
         soup = BeautifulSoup(urllib2.urlopen(url))
         t = soup.title.string
     except:
-        t = "Was zur Hoelle... Check ich nicht."
+        t = "Check ich nicht... 404?"
     return t.encode('ascii','ignore')
 
 
@@ -61,10 +61,10 @@ def on_msg(self, nick, host, channel, message):
         self.msg(channel, ":Ich lebe noch, {nick}".format(nick=nick))
     if message.lower().startswith('!np'):
         self.msg(channel, ':Das funktioniert noch nicht.')
-    if message.startswith('http://'):
+    if "http://" in message.lower():
         title = geturltitle(message)
         self.msg(channel, ":{title}".format(title=title))
-    if message.startswith('https://'):
+    if "https://" in message.lower():
         title = geturltitle(message)
         self.msg(channel, ":{title}".format(title=title))
 
