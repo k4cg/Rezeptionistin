@@ -13,6 +13,7 @@ server="irc.freenode.net"
 port=6667
 nick="Rezeptionistin"
 ircchan="#k4cg"
+useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 (KHTML, like Gecko) Version/8.0.6 Safari/600.6.3'
 
 if sys.hexversion > 0x03000000:
     raw_input = input
@@ -36,7 +37,8 @@ def netcat(hostname, port, content):
 def geturltitle(message):
     try:
         url = re.search("(?P<url>https?://[^\s]+)", message).group("url")
-        soup = BeautifulSoup(urllib2.urlopen(url))
+        req = urllib2.Request(url, headers={ 'User-Agent': useragent })
+        soup = BeautifulSoup(urllib2.urlopen(req))
         t = soup.title.string
     except:
         t = "Check ich nicht... 404?"
