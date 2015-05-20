@@ -40,6 +40,7 @@ def geturltitle(message):
         req = urllib2.Request(url, headers={ 'User-Agent': useragent })
         soup = BeautifulSoup(urllib2.urlopen(req))
         t = soup.title.string
+	t = t.lstrip()
     except:
         t = "Check ich nicht... 404?"
     return t.encode('ascii','ignore')
