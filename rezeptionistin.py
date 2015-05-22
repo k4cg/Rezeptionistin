@@ -13,7 +13,9 @@ server="irc.freenode.net"
 port=6667
 nick="Rezeptionistin"
 ircchan="#k4cg"
+debugchan="#k4cgdebug"
 useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 (KHTML, like Gecko) Version/8.0.6 Safari/600.6.3'
+httpregex=re.compile(r'https?://')
 
 if sys.hexversion > 0x03000000:
     raw_input = input
@@ -41,9 +43,10 @@ def geturltitle(message):
         soup = BeautifulSoup(urllib2.urlopen(req))
         t = soup.title.string
 	t = t.lstrip()
+        t = t.encode('ascii','ignore')
     except:
-        t = "Check ich nicht... 404?"
-    return t.encode('ascii','ignore')
+        t = ""
+    return t
 
 
 # IRC Handlers
@@ -64,16 +67,20 @@ def on_msg(self, nick, host, channel, message):
         self.msg(channel, ":Ich lebe noch, {nick}".format(nick=nick))
     if message.lower().startswith('!np'):
         self.msg(channel, ':Das funktioniert noch nicht.')
-    if "http://" in message.lower():
+    if httpregex.search(message.lower()) is not None:
         title = geturltitle(message)
-        self.msg(channel, ":{title}".format(title=title))
-    if "https://" in message.lower():
-        title = geturltitle(message)
-        self.msg(channel, ":{title}".format(title=title))
+        if not title == "":
+            self.msg(channel, ":Title: {title}".format(title=title))
+
+@irc.on_privmsg
+def on_privmsg(self, nick, host, message):
+    if message.lower().startswith('!gt'):
+        self.msg(nick, ":Ich lebe noch, {nick}".format(nick=nick))
 
 # Start Bot
 irc.start()
 irc.join(ircchan)
+irc.join(debugchan)
 
 # Run Eventloop
 try:
