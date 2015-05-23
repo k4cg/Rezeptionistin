@@ -48,34 +48,38 @@ def geturltitle(message):
         t = ""
     return t
 
+def send_message(self, recipient, msg):
+    self.msg(recipient, ":\x0F" + msg)
+def send_command(self, recipient, cmd):
+    self.msg(recipient, ":" + cmd)
 
 # IRC Handlers
 
 @irc.on_msg
 def on_msg(self, nick, host, channel, message):
     if message.lower().startswith('!help'):
-        self.msg(nick, ":Erzaehl mir doch was du brauchst, mein Junge.")
-        self.msg(nick, ":Ich kann bisher:")
-        self.msg(nick, ":!kt - Zeige aktuelle Temperatur in der K4CG.")
-        self.msg(nick, ":!gt - Guten Tag wuenschen.")
-        self.msg(nick, ":!np - Dir sagen welche Musik so laeuft.")
-        self.msg(nick, ":oder dir den Titel von URLs sagen die du in den Channel postest")
+        send_message(self, nick, "Erzaehl mir doch was du brauchst, mein Junge.")
+        send_message(self, nick, "Ich kann bisher:")
+        send_message(self, nick, "!kt - Zeige aktuelle Temperatur in der K4CG.")
+        send_message(self, nick, "!gt - Guten Tag wuenschen.")
+        send_message(self, nick, "!np - Dir sagen welche Musik so laeuft.")
+        send_message(self, nick, "oder dir den Titel von URLs sagen die du in den Channel postest")
     if message.lower().startswith('!kt'):
         temp = netcat("2001:a60:f073:0:21a:92ff:fe50:bdfc", 31337, "9001")
-        self.msg(channel, ':Die aktuelle Temeratur in der K4CG ist{temp} Grad'.format(temp=temp) )
+        send_message(self, channel, "Die aktuelle Temeratur in der K4CG ist{temp} Grad".format(temp=temp) )
     if message.lower().startswith('!gt'):
-        self.msg(channel, ":Ich lebe noch, {nick}".format(nick=nick))
+        send_message(self, channel, "Ich lebe noch, {nick}".format(nick=nick))
     if message.lower().startswith('!np'):
-        self.msg(channel, ':Das funktioniert noch nicht.')
+        send_message(self, channel, "Das funktioniert noch nicht.")
     if httpregex.search(message.lower()) is not None:
         title = geturltitle(message)
         if not title == "":
-            self.msg(channel, ":Title: {title}".format(title=title))
+            send_message(self, channel, "Title: {title}".format(title=title))
 
 @irc.on_privmsg
 def on_privmsg(self, nick, host, message):
     if message.lower().startswith('!gt'):
-        self.msg(nick, ":Ich lebe noch, {nick}".format(nick=nick))
+        send_message(self, nick, "Ich lebe noch, {nick}".format(nick=nick))
 
 # Start Bot
 irc.start()
