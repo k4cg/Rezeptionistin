@@ -18,7 +18,7 @@ cd rezeptionistin
 
 # Configuration
 
-Einfach nur interne Variablen benutzen im Skript.
+es wird automatisch die `config.ini` im gleichen Verzeichnis gelesen.
 
 ``` ini
 [IRC]
