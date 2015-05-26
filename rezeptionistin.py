@@ -7,7 +7,7 @@ import socket
 import urllib2
 import logging
 import ConfigParser
-from bs4 import BeautifulSoup
+from pyquery import PyQuery as pq
 from wikitools import wiki
 from wikitools import category
 from asyncirc.ircbot import IRCBot
@@ -49,7 +49,7 @@ def netcat(hostname, port, content):
 def wikiupdate(title, url):
   cat = category.Category(site, "Linklist")
   for article in cat.getAllMembersGen(namespaces=[0]):
-    article.edit(appendtext="\n* {title} - {url} \n".format(title=title,url=url))
+    article.edit(appendtext="\n* {title} - {url} \n".format(title=title, url=url))
 
 def geturlfrommsg(message):
   url = re.search("(?P<url>https?://[^\s]+)", message).group("url")
@@ -57,11 +57,8 @@ def geturlfrommsg(message):
 
 def geturltitle(url):
   try:
-    req = urllib2.Request(url, headers={ 'User-Agent': useragent })
-    soup = BeautifulSoup(urllib2.urlopen(req))
-    t = soup.title.string
-    t = t.lstrip()
-    t = t.encode('ascii','ignore')
+    page = pq(url, headers={'user-agent': useragent})
+    t = page("title").text().lstrip().encode('ascii','ignore')
   except:
     t = ""
   return t
@@ -84,7 +81,7 @@ def on_msg(self, nick, host, channel, message):
     send_message(self, nick, "oder dir den Titel von URLs sagen die du in den Channel postest")
   if message.lower().startswith('!kt'):
     temp = netcat("2001:a60:f073:0:21a:92ff:fe50:bdfc", 31337, "9001")
-    send_message(self, channel, "Die aktuelle Temeratur in der K4CG ist{temp} Grad".format(temp=temp) )
+    send_message(self, channel, "Die aktuelle Temperatur in der K4CG ist{temp} Grad".format(temp=temp) )
   if message.lower().startswith('!gt'):
     send_message(self, channel, "Ich lebe noch, {nick}".format(nick=nick))
   if message.lower().startswith('!np'):
