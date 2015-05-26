@@ -20,10 +20,19 @@ cd rezeptionistin
 
 Einfach nur interne Variablen benutzen im Skript.
 
-``` python
-server="irc.freenode.net"
-port=6667
-nick="Rezeptionistin"
-ircchan="#k4cg"
-useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 (KHTML, like Gecko) Version/8.0.6 Safari/600.6.3'
+``` ini
+[IRC]
+server = irc.freenode.net
+port = 6667
+nick = Rezeptionistin
+ircchan = #k4cg
+debugchan = #k4cgdebug
+
+[HTTP]
+useragent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 (KHTML, like Gecko) Version/8.0.6 Safari/600.6.3
+
+[MediaWiki]
+wikiapiurl = https://k4cg.org/api.php
+user = Rezeptionistin
+password = passw0rd
 ```
