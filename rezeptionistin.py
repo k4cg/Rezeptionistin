@@ -7,6 +7,8 @@ import sys
 import socket
 import re
 import urllib2
+from wikitools import wiki
+from wikitools import category
 from bs4 import BeautifulSoup
 
 server="irc.freenode.net"
@@ -16,6 +18,8 @@ ircchan="#k4cg"
 debugchan="#k4cgdebug"
 useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 (KHTML, like Gecko) Version/8.0.6 Safari/600.6.3'
 httpregex=re.compile(r'https?://')
+site = wiki.Wiki("https://k4cg.org/api.php")
+site.login("Rezeptionistin", "")
 
 if sys.hexversion > 0x03000000:
     raw_input = input
@@ -36,9 +40,17 @@ def netcat(hostname, port, content):
     s.close()
     return f
 
-def geturltitle(message):
+def wikiupdate(title, url):
+    cat = category.Category(site, "Linklist")
+    for article in cat.getAllMembersGen(namespaces=[0]):
+        article.edit(appendtext="\n* {title} - {url} \n".format(title=title,url=url))
+
+def geturlfrommsg(message):
+    url = re.search("(?P<url>https?://[^\s]+)", message).group("url")
+    return url
+
+def geturltitle(url):
     try:
-        url = re.search("(?P<url>https?://[^\s]+)", message).group("url")
         req = urllib2.Request(url, headers={ 'User-Agent': useragent })
         soup = BeautifulSoup(urllib2.urlopen(req))
         t = soup.title.string
@@ -72,9 +84,11 @@ def on_msg(self, nick, host, channel, message):
     if message.lower().startswith('!np'):
         send_message(self, channel, "Das funktioniert noch nicht.")
     if httpregex.search(message.lower()) is not None:
-        title = geturltitle(message)
+        url = geturlfrommsg(message)
+        title = geturltitle(url)
         if not title == "":
             send_message(self, channel, "Title: {title}".format(title=title))
+            wikiupdate(title, url)
 
 @irc.on_privmsg
 def on_privmsg(self, nick, host, message):
