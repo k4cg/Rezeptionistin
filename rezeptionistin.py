@@ -1,25 +1,31 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
 
-import logging
-from asyncirc.ircbot import IRCBot
+import re
 import sys
 import socket
-import re
 import urllib2
+import logging
+import ConfigParser
+from bs4 import BeautifulSoup
 from wikitools import wiki
 from wikitools import category
-from bs4 import BeautifulSoup
+from asyncirc.ircbot import IRCBot
 
-server="irc.freenode.net"
-port=6667
-nick="Rezeptionistin"
-ircchan="#k4cg"
-debugchan="#k4cgdebug"
-useragent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 (KHTML, like Gecko) Version/8.0.6 Safari/600.6.3'
+config = ConfigParser.ConfigParser()
+if not config.read("config.ini"):
+    print "Error: your config.ini could not be read"
+    exit(1)
+
+server=config.get('IRC','server')
+port=int(config.get('IRC', 'port'))
+nick=config.get('IRC', 'nick')
+ircchan=config.get('IRC', 'ircchan')
+debugchan=config.get('IRC', 'debugchan')
+useragent=config.get('HTTP', 'useragent')
+site = wiki.Wiki(config.get('MediaWiki', 'wikiapiurl'))
+site.login(config.get('MediaWiki', 'user'), config.get('MediaWiki', 'password'))
 httpregex=re.compile(r'https?://')
-site = wiki.Wiki("https://k4cg.org/api.php")
-site.login("Rezeptionistin", "")
 
 if sys.hexversion > 0x03000000:
     raw_input = input
