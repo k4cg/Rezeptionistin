@@ -64,9 +64,9 @@ def geturltitle(url):
   return t
 
 def send_message(self, recipient, msg):
-  self.msg(recipient, ":\x0F" + msg)
+  self.msg(recipient, "\x0F" + msg)
 def send_command(self, recipient, cmd):
-  self.msg(recipient, ":" + cmd)
+  self.msg(recipient, "" + cmd)
 
 # IRC Handlers
 
