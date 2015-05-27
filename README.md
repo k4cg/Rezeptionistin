@@ -1,5 +1,5 @@
 # Rezeptionistin
-Der freundliche IRC Bot für #k4cg
+Der freundliche IRC-Bot für #k4cg
 
 # Features
 
