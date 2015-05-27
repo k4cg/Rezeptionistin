@@ -3,6 +3,7 @@
 
 import re
 import sys
+import random
 import socket
 import urllib2
 import logging
@@ -66,7 +67,7 @@ def geturltitle(url):
 def send_message(self, recipient, msg):
   self.msg(recipient, "\x0F" + msg)
 def send_command(self, recipient, cmd):
-  self.msg(recipient, "" + cmd)
+  self.msg(recipient, cmd)
 
 # IRC Handlers
 
@@ -78,6 +79,8 @@ def on_msg(self, nick, host, channel, message):
     send_message(self, nick, "!kt - Zeige aktuelle Temperatur in der K4CG.")
     send_message(self, nick, "!gt - Guten Tag wuenschen.")
     send_message(self, nick, "!np - Dir sagen welche Musik so laeuft.")
+    send_message(self, nick, "!beleidige <nick> - Jemanden beleidigen.")
+    send_message(self, nick, "!lobe <nick> - Jemandem ein Kompliment machen.")
     send_message(self, nick, "oder dir den Titel von URLs sagen die du in den Channel postest")
   if message.lower().startswith('!kt'):
     temp = netcat("2001:a60:f073:0:21a:92ff:fe50:bdfc", 31337, "9001")
@@ -86,6 +89,14 @@ def on_msg(self, nick, host, channel, message):
     send_message(self, channel, "Ich lebe noch, {nick}".format(nick=nick))
   if message.lower().startswith('!np'):
     send_message(self, channel, "Das funktioniert noch nicht.")
+  if message.lower().startswith('!beleidige'):
+    if len(message.split()) >= 2:
+      send_message(self, channel, message.split()[1] + ", du " + random.choice(list(open('lists/insults.txt'))))
+  if message.lower().startswith('!lobe'):
+    if len(message.split()) >= 2:
+      send_message(self, channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery.txt'))))
+  if message.lower().startswith('!utf8'):
+      send_message(self, channel, "hällö")
   if httpregex.search(message.lower()) is not None:
     url = geturlfrommsg(message)
     title = geturltitle(url)
