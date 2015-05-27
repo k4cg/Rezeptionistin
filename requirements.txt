@@ -1,0 +1,3 @@
+wikitools
+pyquery
+git+https://github.com/k4cg/AsyncIRC.git

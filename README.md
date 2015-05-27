@@ -8,17 +8,31 @@ Der freundliche IRC Bot für #k4cg
 * `!help` - Zeige Hilfe, antwort im Query
 * URL Title - Fetcht den Titel von http(s) links und postet den inhalt in den Channel #k4cg
 
-# Usage
+# Installation
 
 ``` bash
 git clone https://github.com/k4cg/Rezeptionistin
+```
+
+Nach dem Klonen müssen die Abhängigkeiten installiert, und eine config.ini Datei angelegt werden.
+
+``` bash
 cd rezeptionistin
+pip install -r requirements.txt
+cp config.ini.example config.ini
+```
+
+**! config.ini muss vor der Benutzung angepasst werden**
+
+# Benutzung
+
+``` bash
 ./rezeptionistin.py
 ```
 
-# Configuration
+# Konfiguration
 
-es wird automatisch die `config.ini` im gleichen Verzeichnis gelesen.
+Es wird automatisch die `config.ini` im gleichen Verzeichnis gelesen.
 
 ``` ini
 [IRC]
