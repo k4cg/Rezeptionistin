@@ -3,6 +3,7 @@
 
 import re
 import sys
+import random
 import socket
 import urllib2
 import logging
@@ -86,6 +87,11 @@ def on_msg(self, nick, host, channel, message):
     send_message(self, channel, "Ich lebe noch, {nick}".format(nick=nick))
   if message.lower().startswith('!np'):
     send_message(self, channel, "Das funktioniert noch nicht.")
+  if message.lower().startswith('!insult'):
+    if len(message.split()) >= 2:
+      send_message(self, channel, message.split()[1] + ", du " + random.choice(list(open('insults/insults.txt'))))
+    else:
+      send_message(self, channel, random.choice(list(open('insults/insults.txt'))))
   if httpregex.search(message.lower()) is not None:
     url = geturlfrommsg(message)
     title = geturltitle(url)
