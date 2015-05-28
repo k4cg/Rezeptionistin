@@ -1,21 +1,22 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# vim: set ts=2 sw=2:
 
 import re
 import sys
 import random
 import socket
-import urllib2
+import urllib3
 import logging
-import ConfigParser
+import configparser
 from pyquery import PyQuery as pq
 from wikitools import wiki
 from wikitools import category
 from asyncirc.ircbot import IRCBot
 
-config = ConfigParser.ConfigParser()
+config = configparser.ConfigParser()
 if not config.read("config.ini"):
-  print "Error: your config.ini could not be read"
+  print("Error: your config.ini could not be read")
   exit(1)
 
 server=config.get('IRC','server')
