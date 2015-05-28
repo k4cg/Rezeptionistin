@@ -6,6 +6,7 @@ import re
 import sys
 import random
 import socket
+import codecs
 import urllib2
 import logging
 import ConfigParser
@@ -13,6 +14,9 @@ from pyquery import PyQuery as pq
 from wikitools import wiki
 from wikitools import category
 from asyncirc.ircbot import IRCBot
+
+reload(sys)
+sys.setdefaultencoding("utf-8")
 
 config = ConfigParser.ConfigParser()
 if not config.read("config.ini"):
@@ -96,8 +100,6 @@ def on_msg(self, nick, host, channel, message):
   if message.lower().startswith('!lobe'):
     if len(message.split()) >= 2:
       send_message(self, channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery.txt'))))
-  if message.lower().startswith('!utf8'):
-      send_message(self, channel, "hällö")
   if httpregex.search(message.lower()) is not None:
     url = geturlfrommsg(message)
     title = geturltitle(url)
