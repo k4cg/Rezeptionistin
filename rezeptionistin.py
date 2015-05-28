@@ -22,8 +22,8 @@ if not config.read("config.ini"):
 server=config.get('IRC','server')
 port=int(config.get('IRC', 'port'))
 nick=config.get('IRC', 'nick')
-ircchan=config.get('IRC', 'ircchan', fallback=None)
-debugchan=config.get('IRC', 'debugchan', fallback=None)
+ircchan=config.get('IRC', 'ircchan')
+debugchan=config.get('IRC', 'debugchan')
 useragent=config.get('HTTP', 'useragent')
 site = wiki.Wiki(config.get('MediaWiki', 'wikiapiurl'))
 site.login(config.get('MediaWiki', 'user'), config.get('MediaWiki', 'password'))
@@ -112,10 +112,8 @@ def on_privmsg(self, nick, host, message):
 
 # Start Bot
 irc.start()
-if ircchan:
-  irc.join(ircchan)
-if debugchan:
-  irc.join(debugchan)
+irc.join(ircchan)
+irc.join(debugchan)
 
 # Run Eventloop
 try:
