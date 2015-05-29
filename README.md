@@ -1,12 +1,16 @@
 # Rezeptionistin
-Der freundliche IRC-Bot für #k4cg
+Der freundliche IRC Bot für #k4cg
 
 # Features
 
-* `!gt` - PING - antwortet mit "Ich lebe noch, %nick"
-* `!kt` - Zeigt aktuelle Temperatur in der K4CG
-* `!help` - Zeigt Hilfe (Antwort im Query)
-* URL Title - Fetcht den `<title>` von http(s)-Links und postet den Inhalt in den Channel #k4cg und in den MediaWiki
+* `!gt` - PING Hello Nachricht, mit nick
+* `!kt` - Zeige aktuelle Temperatur in der K4CG
+* `!help` - Zeige Hilfe, antwort im Query
+* `!beleidige <nick>` - Jemanden beleidigen
+* `!lobe <nick>` - Jemandem ein Kompliment machen.
+* `!private <link>` - Einen Link teilen ohne dass er im Wiki gelistet wird.
+* URL Title - Fetcht den Titel von http(s) Links und postet den Inhalt in den Channel #k4cg.
+  wenn nicht `!private` benutzt wurde wird jeder Link auf https://k4cg.org/index.php?title=Links eingetragen
 
 # Installation
 
