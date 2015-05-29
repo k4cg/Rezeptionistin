@@ -10,7 +10,7 @@ import codecs
 import urllib2
 import logging
 import ConfigParser
-from pyquery import PyQuery as pq
+from bs4 import BeautifulSoup
 from wikitools import wiki
 from wikitools import category
 from asyncirc.ircbot import IRCBot
@@ -61,13 +61,18 @@ def geturlfrommsg(message):
   url = re.search("(?P<url>https?://[^\s]+)", message).group("url")
   return url
 
+def getpage(url):
+  req = urllib2.Request(url, headers={ 'User-Agent': useragent })
+  soup = BeautifulSoup(urllib2.urlopen(req))
+  return soup
+
 def geturltitle(url):
   try:
-    page = pq(url, headers={'user-agent': useragent}, verify=False)
-    t = page("title").text().lstrip()
+    page = getpage(url)
+    title = sanitize(page.title.string.lstrip())
   except:
-    t = ""
-  return t
+    title = ""
+  return title
 
 def send_message(self, recipient, msg):
   self.msg(recipient, "\x0F" + msg)
@@ -104,8 +109,7 @@ def on_msg(self, user_nick, host, channel, message):
     if len(message.split()) >= 2:
       send_message(self, channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery.txt'))))
   if nick.lower() in message.lower():
-    page = pq("https://www.satzgenerator.de/neu", headers={'user-agent': useragent}, verify=False)
-    sentence = page("title").text().replace("Satzgenerator: ", "")
+    sentence = geturltitle("https://www.satzgenerator.de/neu").replace("Satzgenerator: ", "")
     send_message(self, channel, sanitize(sentence))
   if httpregex.search(message.lower()) is not None:
     url = geturlfrommsg(message)
