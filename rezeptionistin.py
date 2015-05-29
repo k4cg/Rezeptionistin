@@ -63,7 +63,7 @@ def geturlfrommsg(message):
 
 def geturltitle(url):
   try:
-    page = pq(url, headers={'user-agent': useragent})
+    page = pq(url, headers={'user-agent': useragent}, verify=False)
     t = page("title").text().lstrip()
   except:
     t = ""
@@ -74,8 +74,7 @@ def send_message(self, recipient, msg):
 def send_command(self, recipient, cmd):
   self.msg(recipient, cmd)
 def sanitize(s):
-  return s.translate(string.maketrans("\n\r",'  '))
-
+  return str(s).translate(string.maketrans("\n\r",'  '))
 
 # IRC Handlers
 
@@ -89,7 +88,7 @@ def on_msg(self, user_nick, host, channel, message):
     send_message(self, user_nick, "!np - Dir sagen welche Musik so laeuft.")
     send_message(self, user_nick, "!beleidige <nick> - Jemanden beleidigen.")
     send_message(self, user_nick, "!lobe <nick> - Jemandem ein Kompliment machen.")
-    send_message(self, user_nick, "!private <link> - Einen Link teilen ohne dass er im Wiki gelistet wird.")
+    send_message(self, user_nick, "!private <link> - Einen Link teilen ohne dass er im Wiki gelistet wird. (alternativ: !pr, !nsfw)")
     send_message(self, user_nick, "oder dir den Titel von URLs sagen die du in den Channel postest")
   if message.lower().startswith('!kt'):
     temp = netcat("2001:a60:f073:0:21a:92ff:fe50:bdfc", 31337, "9001")
@@ -105,18 +104,21 @@ def on_msg(self, user_nick, host, channel, message):
     if len(message.split()) >= 2:
       send_message(self, channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery.txt'))))
   if nick.lower() in message.lower():
-    page = pq("https://www.satzgenerator.de/neu", headers={'user-agent': useragent})
+    page = pq("https://www.satzgenerator.de/neu", headers={'user-agent': useragent}, verify=False)
     sentence = page("title").text().replace("Satzgenerator: ", "")
     send_message(self, channel, sanitize(sentence))
   if httpregex.search(message.lower()) is not None:
     url = geturlfrommsg(message)
     title = sanitize(geturltitle(url))
     if not title == "":
-      if not message.lower().startswith('!private'):
+      if message.lower().startswith('!private') or message.lower().startswith('!pr'):
+        send_message(self, channel, "[private] " + "Title: {title}".format(title=title))
+      elif message.lower().startswith('!nsfw'):
+        send_message(self, channel, "[nsfw] " + "Title: {title}".format(title=title))
+      else:
         send_message(self, channel, "Title: {title}".format(title=title))
         wikiupdate(title, url)
-      else:
-        send_message(self, channel, "[private] Title: {title}".format(title=title))
+
 
 
 @irc.on_privmsg
