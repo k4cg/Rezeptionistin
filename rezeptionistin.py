@@ -5,6 +5,7 @@ import re
 import sys
 import random
 import socket
+import string
 import codecs
 import urllib2
 import logging
@@ -72,6 +73,9 @@ def send_message(self, recipient, msg):
   self.msg(recipient, "\x0F" + msg)
 def send_command(self, recipient, cmd):
   self.msg(recipient, cmd)
+def sanitize(s):
+  return s.translate(string.maketrans("\n\r",'  '))
+
 
 # IRC Handlers
 
@@ -103,10 +107,10 @@ def on_msg(self, user_nick, host, channel, message):
   if nick.lower() in message.lower():
     page = pq("https://www.satzgenerator.de/neu", headers={'user-agent': useragent})
     sentence = page("title").text().replace("Satzgenerator: ", "")
-    send_message(self, channel, sentence)
+    send_message(self, channel, sanitize(sentence))
   if httpregex.search(message.lower()) is not None:
     url = geturlfrommsg(message)
-    title = geturltitle(url)
+    title = sanitize(geturltitle(url))
     if not title == "":
       if not message.lower().startswith('!private'):
         send_message(self, channel, "Title: {title}".format(title=title))
