@@ -6,7 +6,11 @@ Der freundliche IRC Bot für #k4cg
 * `!gt` - PING Hello Nachricht, mit nick
 * `!kt` - Zeige aktuelle Temperatur in der K4CG
 * `!help` - Zeige Hilfe, antwort im Query
-* URL Title - Fetcht den Titel von http(s) links und postet den inhalt in den Channel #k4cg
+* `!beleidige <nick>` - Jemanden beleidigen
+* `!lobe <nick>` - Jemandem ein Kompliment machen.
+* `!private <link>` - Einen Link teilen ohne dass er im Wiki gelistet wird.
+* URL Title - Fetcht den Titel von http(s) Links und postet den Inhalt in den Channel #k4cg.
+  wenn nicht `!private` benutzt wurde wird jeder Link auf https://k4cg.org/index.php?title=Links eingetragen
 
 # Installation
 
