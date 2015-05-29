@@ -1,6 +1,5 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf-8 -*-
-# vim: set ts=2 sw=2:
 
 import re
 import sys
@@ -86,6 +85,7 @@ def on_msg(self, user_nick, host, channel, message):
     send_message(self, user_nick, "!np - Dir sagen welche Musik so laeuft.")
     send_message(self, user_nick, "!beleidige <nick> - Jemanden beleidigen.")
     send_message(self, user_nick, "!lobe <nick> - Jemandem ein Kompliment machen.")
+    send_message(self, user_nick, "!private <link> - Einen Link teilen ohne dass er im Wiki gelistet wird.")
     send_message(self, user_nick, "oder dir den Titel von URLs sagen die du in den Channel postest")
   if message.lower().startswith('!kt'):
     temp = netcat("2001:a60:f073:0:21a:92ff:fe50:bdfc", 31337, "9001")
@@ -104,13 +104,16 @@ def on_msg(self, user_nick, host, channel, message):
     page = pq("https://www.satzgenerator.de/neu", headers={'user-agent': useragent})
     sentence = page("title").text().replace("Satzgenerator: ", "")
     send_message(self, channel, sentence)
-
   if httpregex.search(message.lower()) is not None:
     url = geturlfrommsg(message)
     title = geturltitle(url)
     if not title == "":
-      send_message(self, channel, "Title: {title}".format(title=title))
-      wikiupdate(title, url)
+      if not message.lower().startswith('!private'):
+        send_message(self, channel, "Title: {title}".format(title=title))
+        wikiupdate(title, url)
+      else:
+        send_message(self, channel, "[private] Title: {title}".format(title=title))
+
 
 @irc.on_privmsg
 def on_privmsg(self, nick, host, message):
