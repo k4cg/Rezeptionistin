@@ -92,7 +92,7 @@ def on_msg(self, user_nick, host, channel, message):
     send_message(self, user_nick, "!gt - Guten Tag wuenschen.")
     send_message(self, user_nick, "!np - Dir sagen welche Musik so laeuft.")
     send_message(self, user_nick, "!beleidige <nick> - Jemanden beleidigen.")
-    send_message(self, user_nick, "!lobe <nick> - Jemandem ein Kompliment machen.")
+    send_message(self, user_nick, "!schmeichle <nick> - Jemandem ein Kompliment machen.")
     send_message(self, user_nick, "!private <link> - Einen Link teilen ohne dass er im Wiki gelistet wird. (alternativ: !pr, !nsfw)")
     send_message(self, user_nick, "oder dir den Titel von URLs sagen die du in den Channel postest")
   if message.lower().startswith('!kt'):
@@ -105,7 +105,7 @@ def on_msg(self, user_nick, host, channel, message):
   if message.lower().startswith('!beleidige'):
     if len(message.split()) >= 2:
       send_message(self, channel, message.split()[1] + ", du " + random.choice(list(open('lists/insults.txt'))))
-  if message.lower().startswith('!lobe'):
+  if message.lower().startswith('!schmeichle'):
     if len(message.split()) >= 2:
       send_message(self, channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery.txt'))))
   if nick.lower() in message.lower():
