@@ -108,6 +108,8 @@ def on_msg(self, user_nick, host, channel, message):
   if message.lower().startswith('!schmeichle'):
     if len(message.split()) >= 2:
       send_message(self, channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery.txt'))))
+  if message.lower().startswith('soll ich') or message.lower().startswith('kann ich'):
+    send_message(self, channel, user_nick + ": " + random.choice(list(open('lists/answers.txt'))))
   if nick.lower() in message.lower():
     sentence = geturltitle("https://www.satzgenerator.de/neu").replace("Satzgenerator: ", "")
     send_message(self, channel, sanitize(sentence))
