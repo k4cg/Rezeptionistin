@@ -11,6 +11,7 @@ Der freundliche IRC Bot für #k4cg
 * `!private <link>` - Einen Link teilen ohne dass er im Wiki gelistet wird. (alternativ: !pr, !nsfw)
 * URL Title - Fetcht den Titel von http(s) Links und postet den Inhalt in den Channel #k4cg.
   wenn nicht `!private` benutzt wurde wird jeder Link auf https://k4cg.org/index.php?title=Links eingetragen
+* Fragen beantworten in Form: &lt;soll/kann/darf/muss&gt; ich * [&lt;oder&gt; *]
 
 # Installation
 
