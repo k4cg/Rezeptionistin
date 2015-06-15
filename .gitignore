@@ -2,9 +2,6 @@
 __pycache__/
 *.py[cod]
 
-# Editor tmp-files
-*.swp
-
 # C extensions
 *.so
 
