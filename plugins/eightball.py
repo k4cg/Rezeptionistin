@@ -2,6 +2,8 @@ import random
 from plugin import Plugin
 
 class Eightball(Plugin):
+  def help_text(self):
+    return "fragen beantworten in Form: <soll/kann/darf/muss> ich * [<oder> *]"
   def on_msg(self, bot, user_nick, host, channel, message):
     keywords = ["kann ich", "darf ich", "soll ich", "muss ich"]
     if any(message.lower().startswith(k) for k in keywords):
