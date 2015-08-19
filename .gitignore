@@ -58,3 +58,4 @@ docs/_build/
 target/
 
 config.ini
+tell_messages.json

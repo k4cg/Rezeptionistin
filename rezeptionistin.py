@@ -81,6 +81,13 @@ class Rezeptionistin(object):
       title = ""
     return title
 
+  def split_by_nth(self, text, n, seperator=' '):
+    groups = text.split(seperator)
+    res_l = list(seperator.join(groups[:n]))
+    res_r = list(seperator.join(groups[n:]))
+    res_l.extend(res_r)
+    return res_l
+
   def send_message(self, recipient, msg):
     self.irc.msg(recipient, "\x0F" + msg)
 
@@ -101,6 +108,10 @@ class Rezeptionistin(object):
     for plugin in self.plugins:
       plugin.on_privmsg(self, user_nick, host, message)
 
+  def on_join(self, irc, user_nick, host, channel):
+    for plugin in self.plugins:
+      plugin.on_join(self, user_nick, host, channel)
+
 
   # Operations
 
@@ -108,6 +119,7 @@ class Rezeptionistin(object):
     # Assign event handlers
     self.irc.on_msg(self.on_msg)
     self.irc.on_privmsg(self.on_privmsg)
+    self.irc.on_join(self.on_join)
 
     # Start Bot
     self.irc.start()

@@ -19,3 +19,6 @@ class Plugin(object):
 
   def on_privmsg(self, bot, user_nick, host, message):
     pass
+
+  def on_join(self, bot, user_nick, host, channel):
+    pass
