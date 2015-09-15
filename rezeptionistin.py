@@ -40,9 +40,7 @@ class Rezeptionistin(object):
     self.site = wiki.Wiki(config.get('MediaWiki', 'wikiapiurl'))
     self.site.login(config.get('MediaWiki', 'user'), config.get('MediaWiki', 'password'))
     self.httpregex=re.compile(r'https?://')
-
     self.irc = IRCBot(self.server, self.port, self.nick)
-
 
   # Helper Methods
   #
@@ -97,6 +95,15 @@ class Rezeptionistin(object):
   def sanitize(self, s):
     return str(s).translate(string.maketrans("\n\r",'  '))
 
+  def get_plugin(self, name):
+    for plugin in self.plugins:
+      if type(plugin).__name__ == name:
+        return plugin
+
+  def check_user_authentication(self, user_nick, success_callback, failure_callback=None):
+    authentication = self.get_plugin("Authentication")
+    if authentication:
+      authentication.check_user_authentication(self, user_nick, success_callback, failure_callback)
 
   # IRC Handlers
 
@@ -112,6 +119,10 @@ class Rezeptionistin(object):
     for plugin in self.plugins:
       plugin.on_join(self, user_nick, host, channel)
 
+  def on_notice(self, irc, user_nick, host, channel, message):
+    for plugin in self.plugins:
+      plugin.on_notice(self, user_nick, host, channel, message[1:])
+
 
   # Operations
 
@@ -120,6 +131,7 @@ class Rezeptionistin(object):
     self.irc.on_msg(self.on_msg)
     self.irc.on_privmsg(self.on_privmsg)
     self.irc.on_join(self.on_join)
+    self.irc.on_notice(self.on_notice)
 
     # Start Bot
     self.irc.start()

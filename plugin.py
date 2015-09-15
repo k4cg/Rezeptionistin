@@ -22,3 +22,6 @@ class Plugin(object):
 
   def on_join(self, bot, user_nick, host, channel):
     pass
+
+  def on_notice(self, bot, user_nick, host, channel, messsage):
+    pass
