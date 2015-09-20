@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+import time
 import random
 import socket
 import string
@@ -130,7 +131,7 @@ class Rezeptionistin(object):
     # Run Eventloop
     try:
       while self.irc.running:
-        self.irc.send_raw(raw_input(""))
+	time.sleep(1)
     except KeyboardInterrupt:
       print("Received exit command")
     finally:
