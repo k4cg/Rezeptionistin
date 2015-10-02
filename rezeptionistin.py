@@ -38,6 +38,7 @@ class Rezeptionistin(object):
     self.nick=config.get('IRC', 'nick')
     self.ircchan=config.get('IRC', 'ircchan')
     self.debugchan=config.get('IRC', 'debugchan')
+    self.nickservpassword=config.get('IRC', 'nickservpassword')
     self.useragent=config.get('HTTP', 'useragent')
     self.site = wiki.Wiki(config.get('MediaWiki', 'wikiapiurl'))
     self.site.login(config.get('MediaWiki', 'user'), config.get('MediaWiki', 'password'))
