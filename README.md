@@ -14,6 +14,7 @@ Der freundliche IRC Bot für #k4cg
   wenn nicht `!private` benutzt wurde wird jeder Link auf https://k4cg.org/index.php?title=Links eingetragen
 * Fragen beantworten in Form: &lt;soll/kann/darf/muss&gt; ich * [&lt;oder&gt; *]
 * Einem Benutzer eine Nachricht ausrichten wenn er das naechste mal auftaucht.
+* Sich mit NickServ auf Freenode authentifizieren
 
 # Installation
 
