@@ -13,3 +13,6 @@ useragent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 
 wikiapiurl = https://k4cg.org/api.php
 user = Rezeptionistin
 password = passw0rd
+
+[OpenStatus]
+url = http://[2001:dead:beef::1]:80/status.json

@@ -3,18 +3,22 @@ Der freundliche IRC Bot für #k4cg
 
 # Features
 
-* `!gt` - PING Hello Nachricht, mit nick
-* `!kt` - Zeige aktuelle Temperatur in der K4CG
-* `!help` - Zeige Hilfe, antwort im Query
-* `!beleidige <nick>` - Jemanden beleidigen
-* `!schmeichle <nick>` - Jemandem ein Kompliment machen.
-* `!private <link>` - Einen Link teilen ohne dass er im Wiki gelistet wird. (alternativ: !pr, !nsfw)
-* `!lineart` - Eine kleine One-Line ASCII-Art anzeigen
-* URL Title - Fetcht den Titel von http(s) Links und postet den Inhalt in den Channel #k4cg.
-  wenn nicht `!private` benutzt wurde wird jeder Link auf https://k4cg.org/index.php?title=Links eingetragen
-* Fragen beantworten in Form: &lt;soll/kann/darf/muss&gt; ich * [&lt;oder&gt; *]
-* Einem Benutzer eine Nachricht ausrichten wenn er das naechste mal auftaucht.
-* Sich mit NickServ auf Freenode authentifizieren
+```
+Erzaehl mir doch was du brauchst, mein Junge.
+Ich kann bisher:
+!gt - Guten Tag wuenschen.
+!offen - Aktuelle Geraete in der K4CG anzeigen
+fragen beantworten in Form: <soll/kann/darf/muss> ich * [<oder> *]
+!schmeichle <nick> - Jemandem ein Kompliment machen.
+!beleidige <nick> - Jemanden beleidigen.
+!security - Aktuelle Sicherheitsprobleme im Internetz
+!lineart - Zeige eine lineart
+Mich beim freenode NickServ authentifizieren.
+!offen - Aktuelle Geraete in der K4CG anzeigen lassen
+!np - Dir sagen welche Musik so laeuft.
+!sage <nick> <nachricht> - Einem Benutzer eine Nachricht ausrichten wenn er das naechste mal auftaucht.
+!kt - Zeige aktuelle Temperatur in der K4CG.
+```
 
 # Installation
 
@@ -57,4 +61,7 @@ useragent = Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_3) AppleWebKit/600.6.3 
 wikiapiurl = https://k4cg.org/api.php
 user = Rezeptionistin
 password = passw0rd
+
+[OpenStatus]
+url = http://[2001:dead:beef::1]:80/status.json
 ```
