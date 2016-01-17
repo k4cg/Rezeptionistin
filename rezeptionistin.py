@@ -40,6 +40,7 @@ class Rezeptionistin(object):
     self.debugchan=config.get('IRC', 'debugchan')
     self.nickservpassword=config.get('IRC', 'nickservpassword')
     self.useragent=config.get('HTTP', 'useragent')
+    self.openstatus=config.get('OpenStatus', 'url')
     self.site = wiki.Wiki(config.get('MediaWiki', 'wikiapiurl'))
     self.site.login(config.get('MediaWiki', 'user'), config.get('MediaWiki', 'password'))
     self.httpregex=re.compile(r'https?://')
@@ -65,13 +66,17 @@ class Rezeptionistin(object):
     for article in cat.getAllMembersGen(namespaces=[0]):
       print article.edit(appendtext="\n* {title} - {url} \n".format(title=title, url=url))
 
+  def getopenstatus(self):
+    j = self.getpage(self.openstatus)
+    return j
+
   def geturlfrommsg(self, message):
     url = re.search("(?P<url>https?://[^\s]+)", message).group("url")
     return url
 
   def getpage(self, url):
     req = urllib2.Request(url, headers={ 'User-Agent': self.useragent })
-    soup = BeautifulSoup(urllib2.urlopen(req))
+    soup = BeautifulSoup(urllib2.urlopen(req),"html.parser")
     return soup
 
   def geturltitle(self, url):
