@@ -14,6 +14,8 @@ class istheinternetonfire(Plugin):
         if self.is_message_new(msg):
             self.save_message(msg)
             bot.send_message(channel, "Brennt das Internet? {msg}".format(msg=msg))
+        if message.startswith("!security"):
+            bot.send_message(channel, "Brennt das Internet? {msg}".format(msg=msg))
 
     def save_message(self, msg):
         f = open('/tmp/.internetbrenntcache','w')
