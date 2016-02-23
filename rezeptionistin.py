@@ -46,11 +46,19 @@ class Rezeptionistin(object):
     except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
       pass
 
-    self.httpregex=re.compile(r'https?://')
+    self.identified = False
+    self.httpregex = re.compile(r'https?://')
     self.irc = IRCBot(self.server, self.port, self.nick)
+
 
   # Helper Methods
   #
+
+  def nickserv_identify():
+    if not self.identified:
+      self.identified = True
+      if hasattr(self, "nickservpassword") and (self.ircchan == "#" + channel):
+        self.send_command("NickServ", "identify " + self.nickservpassword)
 
   def netcat(self, hostname, port, content):
     s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
