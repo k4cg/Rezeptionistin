@@ -7,7 +7,7 @@ class Tell(Plugin):
 
   messages = []
 
-  def __init__(self):
+  def __init__(self, config=None):
     try:
       with open('tell_messages.json') as infile:
         self.messages = json.load(infile)

@@ -6,5 +6,5 @@ class Nickserv(Plugin):
     return "Mich beim freenode NickServ authentifizieren."
 
   def on_join(self, bot, user_nick, host, channel):
-    if bot.ircchan == "#" + channel:
-        bot.send_command("NickServ", "identify " + bot.nickservpassword)
+    if hasattr(bot, "nickservpassword") and (bot.ircchan == "#" + channel):
+      bot.send_command("NickServ", "identify " + bot.nickservpassword)

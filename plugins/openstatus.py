@@ -1,20 +1,34 @@
-from plugin import Plugin
 import re
 import json
+import ConfigParser
+from plugin import Plugin
 
-class openstatus(Plugin):
+class OpenStatus(Plugin):
 
-    def help_text(self):
-        return ("!offen - Aktuelle Geraete in der K4CG anzeigen lassen")
+  def __init__(self, config=None):
+    try:
+      self.openstatus = config.get('OpenStatus', 'url')
+    except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
+      print "OpenStatus was not properly configured in your config.ini"
+    super(OpenStatus, self).__init__()
 
-    def on_privmsg(self, bot, user_nick, host, channel, message):
-        if message.startswith("!offen"):
-          msg = bot.sanitize(bot.getopenstatus())
-          msg = json.loads(msg)
-          f = msg['online']
+  def help_text(self):
+    return ("!offen - Aktuelle Geraete in der K4CG anzeigen lassen")
 
-          if int(f) > 0:
-            bot.send_message(channel, "Wahrscheinlich. Momentan sind {d} Geraete in der K4CG".format(d=f))
-          else:
-            bot.send_message(channel, "Sorry, sieht nicht so aus als waere jemand in der K4CG".format(d=f))
+  def on_privmsg(self, bot, user_nick, host, channel, message):
+    if message.startswith("!offen"):
+      if hasattr(self, "openstatus"):
+        msg = bot.sanitize(self.get_status())
+        msg = json.loads(msg)
+        f = msg['online']
 
+        if int(f) > 0:
+          bot.send_message(channel, "Wahrscheinlich. Momentan sind {d} Geraete in der K4CG".format(d=f))
+        else:
+          bot.send_message(channel, "Sorry, sieht nicht so aus als waere jemand in der K4CG".format(d=f))
+      else:
+        print "OpenStatus Error: [OpenStatus] url is not configured in your config.ini"
+
+  def get_status(self):
+    j = self.getpage(self.openstatus)
+    return j
