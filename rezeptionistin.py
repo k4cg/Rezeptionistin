@@ -10,10 +10,9 @@ import codecs
 import urllib2
 import ConfigParser
 from plugin import Plugin
-from wikitools import wiki
 from vendor import importdir
 from bs4 import BeautifulSoup
-from wikitools import category
+
 from asyncirc.ircbot import IRCBot
 
 class Rezeptionistin(object):
@@ -24,30 +23,42 @@ class Rezeptionistin(object):
   def __init__(self):
 
     # load config
-    config = ConfigParser.ConfigParser()
-    if not config.read("config.ini"):
+    self.config = ConfigParser.ConfigParser()
+    if not self.config.read("config.ini"):
       print "Error: your config.ini could not be read"
       exit(1)
 
     # load plugins
     importdir.do("plugins", globals())
-    self.plugins = [module() for module in Plugin.__subclasses__()]
+    self.plugins = [module(config=self.config) for module in Plugin.__subclasses__()]
 
-    self.server=config.get('IRC','server')
-    self.port=int(config.get('IRC', 'port'))
-    self.nick=config.get('IRC', 'nick')
-    self.ircchan=config.get('IRC', 'ircchan')
-    self.debugchan=config.get('IRC', 'debugchan')
-    self.nickservpassword=config.get('IRC', 'nickservpassword')
-    self.useragent=config.get('HTTP', 'useragent')
-    self.openstatus=config.get('OpenStatus', 'url')
-    self.site = wiki.Wiki(config.get('MediaWiki', 'wikiapiurl'))
-    self.site.login(config.get('MediaWiki', 'user'), config.get('MediaWiki', 'password'))
-    self.httpregex=re.compile(r'https?://')
+    # load required config
+    self.server=self.config.get('IRC','server')
+    self.port=int(self.config.get('IRC', 'port'))
+    self.nick=self.config.get('IRC', 'nick')
+    self.ircchan=self.config.get('IRC', 'ircchan')
+    self.debugchan=self.config.get('IRC', 'debugchan')
+    self.useragent=self.config.get('HTTP', 'useragent')
+
+    # load optional config
+    try:
+      self.nickservpassword=self.config.get('IRC', 'nickservpassword')
+    except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
+      pass
+
+    self.identified = False
+    self.httpregex = re.compile(r'https?://')
     self.irc = IRCBot(self.server, self.port, self.nick)
+
 
   # Helper Methods
   #
+
+  def nickserv_identify():
+    if not self.identified:
+      self.identified = True
+      if hasattr(self, "nickservpassword") and (self.ircchan == "#" + channel):
+        self.send_command("NickServ", "identify " + self.nickservpassword)
 
   def netcat(self, hostname, port, content):
     s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
@@ -60,15 +71,6 @@ class Rezeptionistin(object):
       f = data
     s.close()
     return f
-
-  def wikiupdate(self, title, url):
-    cat = category.Category(self.site, "Linklist")
-    for article in cat.getAllMembersGen(namespaces=[0]):
-      print article.edit(appendtext="\n* {title} - {url} \n".format(title=title, url=url))
-
-  def getopenstatus(self):
-    j = self.getpage(self.openstatus)
-    return j
 
   def geturlfrommsg(self, message):
     url = re.search("(?P<url>https?://[^\s]+)", message).group("url")

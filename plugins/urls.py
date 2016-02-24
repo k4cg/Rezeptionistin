@@ -16,4 +16,4 @@ class Urls(Plugin):
           bot.send_message(channel, "[nsfw] " + "Title: {title}".format(title=title))
         else:
           bot.send_message(channel, "Title: {title}".format(title=title))
-          print bot.wikiupdate(title, url)
+          print bot.get_plugin("MediaWiki").wikiupdate(title, url)
