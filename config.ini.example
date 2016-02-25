@@ -16,3 +16,6 @@ password = passw0rd
 
 [OpenStatus]
 url = http://[2001:dead:beef::1]:80/status.json
+
+[Language]
+language = de

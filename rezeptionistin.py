@@ -24,8 +24,14 @@ class Rezeptionistin(object):
 
     # load config
     self.config = ConfigParser.ConfigParser()
+    self.translations = ConfigParser.ConfigParser()
+
     if not self.config.read("config.ini"):
       print "Error: your config.ini could not be read"
+      exit(1)
+
+    if not self.translations.read("language.ini"):
+      print "Error: your language.ini could not be read"
       exit(1)
 
     # load plugins
@@ -36,9 +42,12 @@ class Rezeptionistin(object):
     self.server=self.config.get('IRC','server')
     self.port=int(self.config.get('IRC', 'port'))
     self.nick=self.config.get('IRC', 'nick')
-    self.ircchan=self.config.get('IRC', 'ircchan')
+    self.ircchan=self.config.get('IRC', 'ircchan').split(",")
     self.debugchan=self.config.get('IRC', 'debugchan')
     self.useragent=self.config.get('HTTP', 'useragent')
+    self.language=config.get('Language','language')
+
+    # load translation keys
 
     # load optional config
     try:
@@ -53,6 +62,9 @@ class Rezeptionistin(object):
 
   # Helper Methods
   #
+
+  def translate(language_key):
+    return self.translations.get(self.language, language_key)
 
   def nickserv_identify():
     if not self.identified:
@@ -145,7 +157,8 @@ class Rezeptionistin(object):
 
     # Start Bot
     self.irc.start()
-    self.irc.join(self.ircchan)
+    for channel in self.ircchan:
+      self.irc.join(channel)
     self.irc.join(self.debugchan)
 
     # Run Eventloop
