@@ -73,6 +73,9 @@ class Rezeptionistin(object):
     self.language = language
     return True
 
+  def getlanguage(self):
+    return self.language
+
   def nickserv_identify():
     if not self.identified:
       self.identified = True

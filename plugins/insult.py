@@ -8,4 +8,7 @@ class Insult(Plugin):
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.lower().startswith(bot.translate("insult_cmd")):
       if len(message.split()) >= 2:
-        bot.send_message(channel, message.split()[1] + ", du " + random.choice(list(open('lists/insults.txt'))))
+      	if bot.getlanguage() == "de":
+          bot.send_message(channel, message.split()[1] + ", du " + random.choice(list(open('lists/insults.txt'))))
+        elif bot.getlanguage() == "en":
+          bot.send_message(channel, message.split()[1] + ", " + random.choice(list(open('lists/yomomma.txt')))) # source http://www.jokes4us.com/yomamajokes/yomamasofatjokes.html
