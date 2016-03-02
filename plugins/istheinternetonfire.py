@@ -3,8 +3,8 @@ import re
 
 class istheinternetonfire(Plugin):
 
-    def help_text(self):
-        return ("!security - Aktuelle Sicherheitsprobleme im Internetz anzeigen")
+    def help_text(self, bot):
+        return bot.translate("security_help")
 
     def on_msg(self, bot, user_nick, host, channel, message):
         url = "https://istheinternetonfire.com/status.txt"

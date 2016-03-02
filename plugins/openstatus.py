@@ -12,11 +12,11 @@ class OpenStatus(Plugin):
       print "OpenStatus was not properly configured in your config.ini"
     super(OpenStatus, self).__init__()
 
-  def help_text(self):
-    return ("!offen - Aktuelle Geraete in der K4CG anzeigen lassen")
+  def help_text(self, bot):
+    return bot.translate("openstatus_help")
 
   def on_privmsg(self, bot, user_nick, host, channel, message):
-    if message.startswith("!offen"):
+    if message.startswith("!offen") or message.startswith("!open"):
       if hasattr(self, "openstatus"):
         msg = bot.sanitize(self.get_status())
         msg = json.loads(msg)

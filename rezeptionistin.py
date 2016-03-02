@@ -43,9 +43,9 @@ class Rezeptionistin(object):
     self.port=int(self.config.get('IRC', 'port'))
     self.nick=self.config.get('IRC', 'nick')
     self.ircchan=self.config.get('IRC', 'ircchan').split(",")
-    self.debugchan=self.config.get('IRC', 'debugchan')
+    #self.debugchan=self.config.get('IRC', 'debugchan')
     self.useragent=self.config.get('HTTP', 'useragent')
-    self.language=config.get('Language','language')
+    self.language=self.config.get('Language','language')
 
     # load translation keys
 
@@ -63,7 +63,7 @@ class Rezeptionistin(object):
   # Helper Methods
   #
 
-  def translate(language_key):
+  def translate(language_key, nothing=""):
     return self.translations.get(self.language, language_key)
 
   def nickserv_identify():
@@ -159,7 +159,7 @@ class Rezeptionistin(object):
     self.irc.start()
     for channel in self.ircchan:
       self.irc.join(channel)
-    self.irc.join(self.debugchan)
+#    self.irc.join(self.debugchan)
 
     # Run Eventloop
     try:

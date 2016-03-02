@@ -1,9 +1,8 @@
 from plugin import Plugin
 
 class Urls(Plugin):
-  def help_text(self):
-    return ("!private <link> - Einen Link teilen ohne dass er im Wiki gelistet wird. (alternativ: !pr, !nsfw)\n" +
-    "oder dir den Titel von URLs sagen die du in den Channel postest")
+  def help_text(self, bot):
+    return (bot.translate("url_help"+"\n") + bot.translate("url_help2"))
 
   def on_msg(self, bot, user_nick, host, channel, message):
     if bot.httpregex.search(message.lower()) is not None:

@@ -3,8 +3,8 @@ from plugin import Plugin
 class Help(Plugin):
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.lower().startswith('!help'):
-      bot.send_message(user_nick, "Erzaehl mir doch was du brauchst, mein Junge.")
-      bot.send_message(user_nick, "Ich kann bisher:")
+      bot.send_message(user_nick, bot.translate("help_hello"))
+      bot.send_message(user_nick, bot.translate("help_intro"))
       for plugin in bot.plugins:
         text = plugin.help_text()
         if text != "":

@@ -8,7 +8,7 @@ class Plugin(object):
   # meta
   #
 
-  def help_text(self):
+  def help_text(self, bot):
     return ""
 
   # irc event handlers

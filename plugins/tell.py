@@ -16,8 +16,8 @@ class Tell(Plugin):
     super(Tell, self).__init__()
 
 
-  def help_text(self):
-    return "!sage <nick> <nachricht> - Einem Benutzer eine Nachricht ausrichten wenn er das naechste mal auftaucht."
+  def help_text(self, bot):
+    return bot.translate("tell_help")
 
   def tell(self, bot, user_nick, receiver, message):
     reply_to = user_nick if receiver == bot.nick else receiver

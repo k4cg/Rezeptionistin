@@ -2,8 +2,8 @@ import random
 from plugin import Plugin
 
 class Insult(Plugin):
-  def help_text(self):
-    return "!beleidige <nick> - Jemanden beleidigen."
+  def help_text(self, bot):
+    return bot.translate("insult_help")
 
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.lower().startswith('!beleidige'):
