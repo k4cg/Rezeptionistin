@@ -7,4 +7,4 @@ class Playlist(Plugin):
 
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.lower().startswith('!np'):
-      bot.send_message(channel, "Das funktioniert noch nicht.")
+      bot.send_message(channel, bot.translate("playlist_str1"))

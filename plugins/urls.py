@@ -2,7 +2,7 @@ from plugin import Plugin
 
 class Urls(Plugin):
   def help_text(self, bot):
-    return (bot.translate("url_help"+"\n") + bot.translate("url_help2"))
+    return (bot.translate("url_help") + "\n" + bot.translate("url_help2"))
 
   def on_msg(self, bot, user_nick, host, channel, message):
     if bot.httpregex.search(message.lower()) is not None:

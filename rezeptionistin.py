@@ -63,8 +63,15 @@ class Rezeptionistin(object):
   # Helper Methods
   #
 
-  def translate(language_key, nothing=""):
+  def translate(self, language_key):
     return self.translations.get(self.language, language_key)
+
+  def setlanguage(self, language):
+    if not self.translations.has_section(language):
+      return False
+
+    self.language = language
+    return True
 
   def nickserv_identify():
     if not self.identified:
