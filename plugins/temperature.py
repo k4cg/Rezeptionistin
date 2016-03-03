@@ -6,8 +6,8 @@ import json
 from plugin import Plugin
 
 class Temperature(Plugin):
-  def help_text(self):
-    return "!kt - Zeige aktuelle Temperatur in der K4CG."
+  def help_text(self, bot):
+    return bot.translate("temp_help")
 
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.lower().startswith('!kt'):
@@ -20,4 +20,4 @@ class Temperature(Plugin):
       temp_outdoor = parsed_json['current_observation']['temp_c']
       f.close()
       
-      bot.send_message(channel, "Die aktuelle Temperatur in der K4CG ist {temp}°C innen ".format(temp=temp) + "und {temp}°C aussen.".format(temp=temp_outdoor))
+      bot.send_message(channel, bot.translate("temp_str1").format(temp=temp) + bot.translate("temp_str2").format(temp=temp_outdoor))

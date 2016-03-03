@@ -45,7 +45,7 @@ class Rezeptionistin(object):
     self.ircchan=self.config.get('IRC', 'ircchan').split(",")
     self.debugchan=self.config.get('IRC', 'debugchan')
     self.useragent=self.config.get('HTTP', 'useragent')
-    self.language=config.get('Language','language')
+    self.language=self.config.get('Language','language')
 
     # load translation keys
 
@@ -63,8 +63,18 @@ class Rezeptionistin(object):
   # Helper Methods
   #
 
-  def translate(language_key):
+  def translate(self, language_key):
     return self.translations.get(self.language, language_key)
+
+  def setlanguage(self, language):
+    if not self.translations.has_section(language):
+      return False
+
+    self.language = language
+    return True
+
+  def getlanguage(self):
+    return self.language
 
   def nickserv_identify():
     if not self.identified:

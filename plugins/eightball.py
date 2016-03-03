@@ -2,8 +2,8 @@ import random
 from plugin import Plugin
 
 class Eightball(Plugin):
-  def help_text(self):
-    return "fragen beantworten in Form: <soll/kann/darf/muss> ich * [<oder> *]"
+  def help_text(self, bot):
+    return bot.translate("eightball_help")
   
   def answer(self, bot, msg, recipient, nick=None):
     keywords = ["kann ich", "darf ich", "soll ich", "muss ich"]

@@ -3,8 +3,8 @@ import re
 
 class istheinternetonfire(Plugin):
 
-    def help_text(self):
-        return ("!security - Aktuelle Sicherheitsprobleme im Internetz anzeigen")
+    def help_text(self, bot):
+        return bot.translate("security_help")
 
     def on_msg(self, bot, user_nick, host, channel, message):
         url = "https://istheinternetonfire.com/status.txt"
@@ -13,9 +13,9 @@ class istheinternetonfire(Plugin):
         #msg = re.sub('https?://[^\s]+', '', msg)
         if self.is_message_new(msg):
             self.save_message(msg)
-            bot.send_message(channel, "Brennt das Internet? {msg}".format(msg=msg))
+            bot.send_message(channel, bot.translate("security_str1").format(msg=msg))
         if message.startswith("!security"):
-            bot.send_message(channel, "Brennt das Internet? {msg}".format(msg=msg))
+            bot.send_message(channel, bot.translate("security_str1").format(msg=msg))
 
     def save_message(self, msg):
         f = open('/tmp/.internetbrenntcache','w')
