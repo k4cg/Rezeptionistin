@@ -31,8 +31,7 @@ class Rezeptionistin(object):
       exit(1)
 
     if not self.translations.read("language.ini"):
-      print "Error: your language.ini could not be read"
-      exit(1)
+      print "Warning: your language.ini could not be read"
 
     # load plugins
     importdir.do("plugins", globals())
