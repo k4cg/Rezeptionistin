@@ -43,17 +43,19 @@ class Rezeptionistin(object):
     self.port=int(self.config.get('IRC', 'port'))
     self.nick=self.config.get('IRC', 'nick')
     self.ircchan=self.config.get('IRC', 'ircchan').split(",")
-    self.debugchan=self.config.get('IRC', 'debugchan')
     self.useragent=self.config.get('HTTP', 'useragent')
-    self.language=self.config.get('Language','language')
-
-    # load translation keys
 
     # load optional config
     try:
       self.nickservpassword=self.config.get('IRC', 'nickservpassword')
+      self.debugchan=self.config.get('IRC', 'debugchan')
+      self.language=self.config.get('Language','language')
     except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
       pass
+
+    # load config defaults
+    if not hasattr(self, "language"):
+      self.language = "de"
 
     self.identified = False
     self.httpregex = re.compile(r'https?://')
@@ -169,7 +171,8 @@ class Rezeptionistin(object):
     self.irc.start()
     for channel in self.ircchan:
       self.irc.join(channel)
-    self.irc.join(self.debugchan)
+    if hasattr(self, "debugchan"):
+      self.irc.join(self.debugchan)
 
     # Run Eventloop
     try:
