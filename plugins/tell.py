@@ -16,17 +16,17 @@ class Tell(Plugin):
     super(Tell, self).__init__()
 
 
-  def help_text(self):
-    return "!sage <nick> <nachricht> - Einem Benutzer eine Nachricht ausrichten wenn er das naechste mal auftaucht."
+  def help_text(self, bot):
+    return bot.translate("tell_help")
 
   def tell(self, bot, user_nick, receiver, message):
     reply_to = user_nick if receiver == bot.nick else receiver
 
-    if message.lower().startswith('!sage'):
+    if message.lower().startswith(bot.translate("tell_cmd")):
       if (len(message.rstrip().split()) < 3) or (len(bot.split_by_nth(message.rstrip(), 2)[1]) <= 0):
-        bot.send_message(reply_to, user_nick + ": Benutzung: !sage <nick> <nachricht>")
+        bot.send_message(reply_to, user_nick + bot.translate("tell_str1"))
       elif len(bot.split_by_nth(message, 2)[1]) > 144:
-        bot.send_message(reply_to, user_nick + ": Bitte bleibe unter 144 Zeichen.")
+        bot.send_message(reply_to, user_nick + bot.translate("tell_str2"))
       else:
         recipient = message.split()[1]
         message = message.split(recipient)[1].strip()
@@ -46,7 +46,7 @@ class Tell(Plugin):
         with open('tell_messages.json', 'w+') as outfile:
           json.dump(self.messages, outfile)
 
-        bot.send_message(reply_to, "Alles klar, mach ich.")
+        bot.send_message(reply_to, bot.translate("tell_str3"))
 
   def on_join(self, bot, user_nick, host, channel):
     user_messages = [message for message in self.messages if message["recipient"] == user_nick]
