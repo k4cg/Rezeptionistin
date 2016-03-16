@@ -12,6 +12,7 @@ fragen beantworten in Form: <soll/kann/darf/muss> ich * [<oder> *]
 !schmeichle <nick> - Jemandem ein Kompliment machen.
 !beleidige <nick> - Jemanden beleidigen.
 !security - Aktuelle Sicherheitsprobleme im Internetz
+!lang - Ändern die Sprache
 !lineart - Zeige eine lineart
 Mich beim freenode NickServ authentifizieren.
 !offen - Aktuelle Geraete in der K4CG anzeigen lassen
@@ -64,4 +65,9 @@ password = passw0rd
 
 [OpenStatus]
 url = http://[2001:dead:beef::1]:80/status.json
+
+[Language]
+language = de
 ```
+
+Optionen für Sprache: "de" oder "en"
