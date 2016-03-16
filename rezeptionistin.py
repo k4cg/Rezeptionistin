@@ -83,15 +83,19 @@ class Rezeptionistin(object):
         self.send_command("NickServ", "identify " + self.nickservpassword)
 
   def netcat(self, hostname, port, content):
-    s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
-    s.connect((hostname, port))
-    s.shutdown(socket.SHUT_WR)
-    while 1:
-      data = s.recv(1024)
-      if data == "":
-        break
-      f = data
-    s.close()
+    try:
+        s = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+        s.connect((hostname, port))
+        s.shutdown(socket.SHUT_WR)
+        while 1:
+          data = s.recv(1024)
+          if data == "":
+            break
+          f = data
+    except:
+        f = ""
+    finally:
+        s.close()
     return f
 
   def geturlfrommsg(self, message):
