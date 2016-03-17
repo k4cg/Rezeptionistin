@@ -20,4 +20,7 @@ class Temperature(Plugin):
       temp_outdoor = parsed_json['current_observation']['temp_c']
       f.close()
       
-      bot.send_message(channel, bot.translate("temp_str1").format(temp=temp) + bot.translate("temp_str2").format(temp=temp_outdoor))
+      if temp is not "":
+          bot.send_message(channel, bot.translate("temp_str1").format(temp=temp) + " " + bot.translate("temp_str2").format(temp=temp_outdoor))
+      else:
+          bot.send_message(channel, bot.translate("temp_str3").format(temp=temp_outdoor))
