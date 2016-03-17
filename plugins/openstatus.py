@@ -15,10 +15,10 @@ class OpenStatus(Plugin):
   def help_text(self, bot):
     return bot.translate("openstatus_help")
 
-  def on_privmsg(self, bot, user_nick, host, channel, message):
+  def on_msg(self, bot, user_nick, host, channel, message):
     if message.startswith("!offen") or message.startswith("!open"):
       if hasattr(self, "openstatus"):
-        msg = bot.sanitize(self.get_status())
+        msg = bot.sanitize(self.get_status(bot))
         msg = json.loads(msg)
         f = msg['online']
 
@@ -29,6 +29,6 @@ class OpenStatus(Plugin):
       else:
         print "OpenStatus Error: [OpenStatus] url is not configured in your config.ini"
 
-  def get_status(self):
-    j = self.getpage(self.openstatus)
+  def get_status(self, bot):
+    j = bot.getpage(self.openstatus)
     return j
