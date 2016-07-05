@@ -9,11 +9,11 @@ class Temperature(Plugin):
   def help_text(self, bot):
     return bot.translate("temp_help")
 
-  def get_indoor_temp():
+  def get_indoor_temp(self):
     temp = bot.netcat("2001:a60:f073:0:21d:92ff:fe25:2a23", 31337, "9001").strip()
     return temp
     
-  def get_outdoor_temp():
+  def get_outdoor_temp(self):
     station_id = "INUREMBE2";
     f = urllib2.urlopen('http://api.wunderground.com/api/a5744ceb15b96090/conditions/q/pws:' + station_id + '.json')
     json_string = f.read()
