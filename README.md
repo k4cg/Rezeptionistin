@@ -68,6 +68,11 @@ url = http://[2001:dead:beef::1]:80/status.json
 
 [Language]
 language = de
+
+[Temperature]
+host = 2001:a60:f073:0:21d:92ff:fe25:2a23
+port = 31337
+wunderground = http://api.wunderground.com/api/a5744ceb15b96090/conditions/q/pws:INUREMBE2.json
 ```
 
 Optionen für Sprache: "de" oder "en"
