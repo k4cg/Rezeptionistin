@@ -59,5 +59,6 @@ target/
 
 config.ini
 tell_messages.json
+corpus.txt
 
 .venv/

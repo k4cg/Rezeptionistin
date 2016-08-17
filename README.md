@@ -73,6 +73,25 @@ language = de
 host = 2001:a60:f073:0:21d:92ff:fe25:2a23
 port = 31337
 wunderground = http://api.wunderground.com/api/a5744ceb15b96090/conditions/q/pws:INUREMBE2.json
+
+[Sentences]
+satzgenerator = off
+markov = on
+markovfile = /usr/local/rezeptionistin/corpus.txt
 ```
 
 Optionen für Sprache: "de" oder "en"
+
+# Sentences
+
+Wenn man den Bot im Chat mit "Rezeptionistin" anspricht, wird das Sentences
+Plugin getriggered. Dieses Antwortet mit einem zufaellgiem Satz darauf.
+
+Dieser Satz kann aus zwei Quellen kommen. Entweder `markov` oder
+`satzgenerator`. Satzgenerator ist eine Site im Netz die man per API
+anfragen kann. Der Markov Teil nutzt den Markov-Chain Algo und einen Corpus
+den man vorher angeben muss.
+
+Wenn beide (`satzgenerator` und `markov`) angeschaltet sind, wird eine
+zufaellige Quelle ausgewaehlt.
+
