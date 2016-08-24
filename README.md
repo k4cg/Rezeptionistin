@@ -35,7 +35,7 @@ pip install -r requirements.txt
 cp config.ini.example config.ini
 ```
 
-**! config.ini muss vor der Benutzung angepasst werden**
+**config.ini muss vor der Benutzung angepasst werden**
 
 # Benutzung
 
