@@ -75,10 +75,12 @@ port = 31337
 wunderground = http://api.wunderground.com/api/a5744ceb15b96090/conditions/q/pws:INUREMBE2.json
 
 [Sentences]
-satzgenerator = off
+satzgenerator = on
 markov = on
 markovfile = /usr/local/rezeptionistin/corpus.txt
 ```
+
+# Language
 
 Optionen für Sprache: "de" oder "en"
 
