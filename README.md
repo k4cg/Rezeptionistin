@@ -78,6 +78,16 @@ wunderground = http://api.wunderground.com/api/a5744ceb15b96090/conditions/q/pws
 satzgenerator = on
 markov = on
 markovfile = /usr/local/rezeptionistin/corpus.txt
+
+[Licht]
+host = 127.0.0.1
+port = 31338
+id = xpa
+
+[Geraeusche]
+host = 127.0.0.1
+port = 31338
+id = voE
 ```
 
 # Language
