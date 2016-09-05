@@ -31,6 +31,6 @@ class Sound(Plugin):
     if message.lower().startswith('!geraeusche') or message.lower().startswith('!sound'):
       m = self.get_sound()
       if not m == '':
-        bot.send_message(channel, 'Momentane Geraeuschintensitaet: ' + m + '/3300')
+        bot.send_message(channel, 'Momentane Geraeuschintensitaet: ' + m + '/3300', user_nick)
       else:
-        bot.send_message(channel, 'Geraeuschintensitaet konnte *nicht* abgefragt werden')
+        bot.send_message(channel, 'Geraeuschintensitaet konnte *nicht* abgefragt werden', user_nick)

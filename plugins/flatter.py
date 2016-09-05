@@ -9,7 +9,7 @@ class Flatter(Plugin):
     if message.lower().startswith(bot.translate("flatter_cmd")):
       if len(message.split()) >= 2:
       	if bot.getlanguage() == "de":
-          bot.send_message(channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery.txt'))))
+          bot.send_message(channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery.txt'))), user_nick)
         elif bot.getlanguage() == "en":
-          bot.send_message(channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery_en.txt')))) # Source http://www.pickuplinesgalore.com/cheesy.html
-
+          # Source http://www.pickuplinesgalore.com/cheesy.html
+          bot.send_message(channel, message.split()[1] + ", " + random.choice(list(open('lists/flattery_en.txt'))), user_nick)

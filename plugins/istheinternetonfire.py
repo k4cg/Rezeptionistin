@@ -13,9 +13,9 @@ class istheinternetonfire(Plugin):
         #msg = re.sub('https?://[^\s]+', '', msg)
         if self.is_message_new(msg):
             self.save_message(msg)
-            bot.send_message(channel, bot.translate("security_str1").format(msg=msg))
+            bot.send_message(channel, bot.translate("security_str1").format(msg=msg), user_nick)
         if message.startswith("!security"):
-            bot.send_message(channel, bot.translate("security_str1").format(msg=msg))
+            bot.send_message(channel, bot.translate("security_str1").format(msg=msg), user_nick)
 
     def save_message(self, msg):
         f = open('/tmp/.internetbrenntcache','w')

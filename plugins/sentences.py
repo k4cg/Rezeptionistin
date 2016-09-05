@@ -35,4 +35,4 @@ class Sentences(Plugin):
         else:
           sentence = self.get_markov_sentence()
 
-      bot.send_message(channel, bot.sanitize(sentence))
+      bot.send_message(channel, bot.sanitize(sentence), user_nick)

@@ -94,6 +94,12 @@ id = voE
 
 Optionen für Sprache: "de" oder "en"
 
+# Ignore
+
+List of users to ignore. Separated by comma.
+
+user1,user2
+
 # Sentences
 
 Wenn man den Bot im Chat mit "Rezeptionistin" anspricht, wird das Sentences

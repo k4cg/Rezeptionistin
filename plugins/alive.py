@@ -6,9 +6,9 @@ class Alive(Plugin):
 
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.lower().startswith('!gt'):
-      bot.send_message(channel, bot.translate("alive_str1").format(nick=user_nick))
+      bot.send_message(channel, bot.translate("alive_str1").format(nick=user_nick), user_nick)
 
   def on_privmsg(self, bot, user_nick, host, message):
     if message.lower().startswith('!gt'):
-      bot.send_message(user_nick, bot.translate("alive_str1").format(nick=user_nick))
+      bot.send_message(user_nick, bot.translate("alive_str1").format(nick=user_nick), user_nick)
 

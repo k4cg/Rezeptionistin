@@ -10,9 +10,9 @@ class Urls(Plugin):
       title = bot.sanitize(bot.geturltitle(url))
       if not title == "":
         if message.lower().startswith('!private') or message.lower().startswith('!pr'):
-          bot.send_message(channel, "[private] " + "Title: {title}".format(title=title))
+          bot.send_message(channel, "[private] " + "Title: {title}".format(title=title), user_nick)
         elif message.lower().startswith('!nsfw'):
-          bot.send_message(channel, "[nsfw] " + "Title: {title}".format(title=title))
+          bot.send_message(channel, "[nsfw] " + "Title: {title}".format(title=title), user_nick)
         else:
-          bot.send_message(channel, "Title: {title}".format(title=title))
+          bot.send_message(channel, "Title: {title}".format(title=title), user_nick)
           print bot.get_plugin("MediaWiki").wikiupdate(title, url)

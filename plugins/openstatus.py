@@ -23,9 +23,9 @@ class OpenStatus(Plugin):
         f = msg['online']
 
         if int(f) > 0:
-          bot.send_message(channel, bot.translate("openstatus_str1").format(d=f))
+          bot.send_message(channel, bot.translate("openstatus_str1").format(d=f), user_nick)
         else:
-          bot.send_message(channel, bot.translate("openstatus_str2").format(d=f))
+          bot.send_message(channel, bot.translate("openstatus_str2").format(d=f), user_nick)
       else:
         print "OpenStatus Error: [OpenStatus] url is not configured in your config.ini"
 

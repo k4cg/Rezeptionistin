@@ -37,9 +37,9 @@ class Temperature(Plugin):
       temp_outdoor = self.get_outdoor_temp(bot)
 
       if temp is not "":
-          bot.send_message(channel, bot.translate("temp_str1").format(temp=temp) + " " + bot.translate("temp_str2").format(temp=temp_outdoor))
+          bot.send_message(channel, bot.translate("temp_str1").format(temp=temp) + " " + bot.translate("temp_str2").format(temp=temp_outdoor), user_nick)
       else:
-          bot.send_message(channel, bot.translate("temp_str3").format(temp=temp_outdoor))
+          bot.send_message(channel, bot.translate("temp_str3").format(temp=temp_outdoor), user_nick)
 
   def on_privmsg(self, bot, user_nick, host, message):
     if message.lower().startswith('!kt'):
@@ -47,6 +47,6 @@ class Temperature(Plugin):
       temp_outdoor = self.get_outdoor_temp(bot)
 
       if temp is not "":
-          bot.send_message(user_nick, bot.translate("temp_str1").format(temp=temp) + " " + bot.translate("temp_str2").format(temp=temp_outdoor))
+          bot.send_message(user_nick, bot.translate("temp_str1").format(temp=temp) + " " + bot.translate("temp_str2").format(temp=temp_outdoor), user_nick)
       else:
-          bot.send_message(user_nick, bot.translate("temp_str3").format(temp=temp_outdoor))
+          bot.send_message(user_nick, bot.translate("temp_str3").format(temp=temp_outdoor), user_nick)

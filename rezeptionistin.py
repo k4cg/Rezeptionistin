@@ -47,6 +47,11 @@ class Rezeptionistin(object):
     self.useragent=self.config.get('HTTP', 'useragent')
     self.language=self.config.get('Language','language')
 
+    try:
+      self.ignore=self.config.get('IRC','ignore').split(',')
+    except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
+      self.ignore = []
+
     # load translation keys
 
     # load optional config
@@ -122,8 +127,9 @@ class Rezeptionistin(object):
     res_l.extend(res_r)
     return res_l
 
-  def send_message(self, recipient, msg):
-    self.irc.msg(recipient, "\x0F" + msg)
+  def send_message(self, recipient, msg, srcuser=''):
+      if srcuser not in self.ignore:
+        self.irc.msg(recipient, "\x0F" + msg)
 
   def send_command(self, recipient, cmd):
     self.irc.msg(recipient, cmd)

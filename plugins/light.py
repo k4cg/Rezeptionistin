@@ -30,4 +30,4 @@ class Licht(Plugin):
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.lower().startswith('!licht'):
       m = self.get_light()
-      bot.send_message(channel, 'Momentane Lichtverhaeltnisse: ' + m)
+      bot.send_message(channel, 'Momentane Lichtverhaeltnisse: ' + m, user_nick)

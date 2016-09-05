@@ -25,4 +25,4 @@ class Insult(Plugin):
         msg = message.split()[1] + ", thou " + insult
       else:
         msg = 'Thou ' + insult
-      bot.send_message(channel, msg)
+      bot.send_message(channel, msg, user_nick)

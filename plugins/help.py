@@ -9,5 +9,5 @@ class Help(Plugin):
         text = plugin.help_text(bot)
         if text != "":
           for t in text.split("\n"):
-            bot.send_message(user_nick, t)
+            bot.send_message(user_nick, t, user_nick)
 
