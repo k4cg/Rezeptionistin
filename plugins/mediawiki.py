@@ -1,4 +1,5 @@
 import ConfigParser
+import datetime
 from wikitools import wiki
 from wikitools import category
 from plugin import Plugin
@@ -18,6 +19,8 @@ class MediaWiki(Plugin):
     super(MediaWiki, self).__init__()
 
   def wikiupdate(self, title, url):
+    now = datetime.datetime.now()
+    date = now.strftime("%Y-%m-%d %H:%M")
     cat = category.Category(self.site, "Linklist")
     for article in cat.getAllMembersGen(namespaces=[0]):
-      print article.edit(appendtext="\n* {title} - {url} \n".format(title=title, url=url))
+      print article.edit(appendtext="\n* {title} - {url} ({date}) \n".format(title=title, url=url, date=date))
