@@ -103,8 +103,8 @@ class Rezeptionistin(object):
         s.close()
     return f
 
-  def geturlfrommsg(self, message):
-    url = re.search("(?P<url>https?://[^\s]+)", message).group("url")
+  def geturlsfrommsg(self, message):
+    url = re.findall("(?P<url>https?://[^\s]+)", message)
     return url
 
   def getpage(self, url):
