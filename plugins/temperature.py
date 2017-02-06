@@ -9,8 +9,6 @@ class Temperature(Plugin):
 
   def __init__(self, config=None):
     try:
-      self.temp_host = config.get('Temperature', 'host')
-      self.temp_port = config.get('Temperature', 'port')
       self.wunderground = config.get('Temperature', 'wunderground')
     except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
       print "Temperature was not properly configured in your config.ini"
@@ -20,7 +18,8 @@ class Temperature(Plugin):
     return bot.translate("temp_help")
 
   def get_indoor_temp(self, bot):
-    temp = bot.netcat(self.temp_host, int(self.temp_port), "9001").strip()
+    msg = bot.get_spacestatus_data()
+    temp = msg['temp']
     return temp
 
   def get_outdoor_temp(self, bot):

@@ -63,31 +63,19 @@ wikiapiurl = https://k4cg.org/api.php
 user = Rezeptionistin
 password = passw0rd
 
-[OpenStatus]
+[SpaceStatus]
 url = http://[2001:dead:beef::1]:80/status.json
 
 [Language]
 language = de
 
 [Temperature]
-host = 2001:a60:f073:0:21d:92ff:fe25:2a23
-port = 31337
 wunderground = http://api.wunderground.com/api/a5744ceb15b96090/conditions/q/pws:INUREMBE2.json
 
 [Sentences]
 satzgenerator = on
 markov = on
 markovfile = /usr/local/rezeptionistin/corpus.txt
-
-[Licht]
-host = 127.0.0.1
-port = 31338
-id = xpa
-
-[Geraeusche]
-host = 127.0.0.1
-port = 31338
-id = voE
 ```
 
 # Language

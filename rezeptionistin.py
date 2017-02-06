@@ -112,6 +112,17 @@ class Rezeptionistin(object):
     soup = BeautifulSoup(urllib2.urlopen(req),"html.parser")
     return soup
 
+  def get_spacestatus_data(self, url):
+    data = None
+    try:
+      self.spacestatus = config.get('SpaceStatus', 'url')
+      data = self.getpage(self.spacestatus)
+      data = json.loads(data)
+    except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
+      print "SpaceStatus was not properly configured in your config.ini"
+
+    return data
+
   def geturltitle(self, url):
     try:
       page = self.getpage(url)
