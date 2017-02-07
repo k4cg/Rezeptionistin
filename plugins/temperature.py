@@ -19,7 +19,7 @@ class Temperature(Plugin):
 
   def get_indoor_temp(self, bot):
     msg = bot.get_spacestatus_data()
-    temp = msg['temp']
+    temp = str(msg['temp'])
     return temp
 
   def get_outdoor_temp(self, bot):

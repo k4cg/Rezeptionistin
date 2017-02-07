@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+import json
 import time
 import random
 import socket
@@ -9,6 +10,7 @@ import string
 import codecs
 import urllib2
 import ConfigParser
+import logging
 from plugin import Plugin
 from vendor import importdir
 from bs4 import BeautifulSoup
@@ -46,6 +48,7 @@ class Rezeptionistin(object):
     self.debugchan=self.config.get('IRC', 'debugchan')
     self.useragent=self.config.get('HTTP', 'useragent')
     self.language=self.config.get('Language','language')
+    self.spacestatus=self.config.get('SpaceStatus', 'url')
 
     try:
       self.ignore=self.config.get('IRC','ignore').split(',')
@@ -103,6 +106,9 @@ class Rezeptionistin(object):
         s.close()
     return f
 
+  def debug(self, msg):
+    logging.debug(msg)
+
   def geturlsfrommsg(self, message):
     url = re.findall("(?P<url>https?://[^\s]+)", message)
     return url
@@ -112,12 +118,13 @@ class Rezeptionistin(object):
     soup = BeautifulSoup(urllib2.urlopen(req),"html.parser")
     return soup
 
-  def get_spacestatus_data(self, url):
+  def get_spacestatus_data(self):
     data = None
     try:
-      self.spacestatus = config.get('SpaceStatus', 'url')
       data = self.getpage(self.spacestatus)
+      data = self.sanitize(data)
       data = json.loads(data)
+      self.debug(data)
     except (ConfigParser.NoSectionError, ConfigParser.NoOptionError):
       print "SpaceStatus was not properly configured in your config.ini"
 

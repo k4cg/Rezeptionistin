@@ -3,10 +3,10 @@ import json
 import ConfigParser
 from plugin import Plugin
 
-class Open(Plugin):
+class SpaceStatus(Plugin):
 
   def __init__(self, config=None):
-    super(Open, self).__init__()
+    super(SpaceStatus, self).__init__()
 
   def help_text(self, bot):
     return bot.translate("spacestatus_help")

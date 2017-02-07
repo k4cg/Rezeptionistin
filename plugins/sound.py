@@ -13,7 +13,7 @@ class Sound(Plugin):
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.startswith("!noise") or message.startswith("!geraeusche"):
         msg = bot.get_spacestatus_data()
-        f = msg['sound']
+        f = str(msg['sound'])
 
         if float(f) > 0:
           bot.send_message(channel, bot.translate("Sound_str1").format(sound=f), user_nick)
