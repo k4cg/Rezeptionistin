@@ -19,8 +19,11 @@ class Temperature(Plugin):
 
   def get_indoor_temp(self, bot):
     msg = bot.get_spacestatus_data()
-    temp = str(msg['temp'])
-    return temp
+
+    if msg is None:
+      return None
+    else:
+      return str(msg['temp'])
 
   def get_outdoor_temp(self, bot):
     f = urllib2.urlopen(self.wunderground)
@@ -35,7 +38,7 @@ class Temperature(Plugin):
       temp = self.get_indoor_temp(bot)
       temp_outdoor = self.get_outdoor_temp(bot)
 
-      if temp is not "":
+      if temp is not None:
           bot.send_message(channel, bot.translate("temp_str1").format(temp=temp) + " " + bot.translate("temp_str2").format(temp=temp_outdoor), user_nick)
       else:
           bot.send_message(channel, bot.translate("temp_str3").format(temp=temp_outdoor), user_nick)
@@ -45,7 +48,7 @@ class Temperature(Plugin):
       temp = self.get_indoor_temp(bot)
       temp_outdoor = self.get_outdoor_temp(bot)
 
-      if temp is not "":
+      if temp is not None:
           bot.send_message(user_nick, bot.translate("temp_str1").format(temp=temp) + " " + bot.translate("temp_str2").format(temp=temp_outdoor), user_nick)
       else:
           bot.send_message(user_nick, bot.translate("temp_str3").format(temp=temp_outdoor), user_nick)

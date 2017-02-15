@@ -114,14 +114,22 @@ class Rezeptionistin(object):
     return url
 
   def getpage(self, url):
-    req = urllib2.Request(url, headers={ 'User-Agent': self.useragent })
-    soup = BeautifulSoup(urllib2.urlopen(req),"html.parser")
+    try:
+        req = urllib2.Request(url, headers={ 'User-Agent': self.useragent })
+        soup = BeautifulSoup(urllib2.urlopen(req),"html.parser")
+    except:
+        soup = None
+
     return soup
 
   def get_spacestatus_data(self):
     data = None
     try:
       data = self.getpage(self.spacestatus)
+
+      if data is None:
+        return data
+
       data = self.sanitize(data)
       data = json.loads(data)
       self.debug(data)
