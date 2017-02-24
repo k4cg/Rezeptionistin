@@ -110,7 +110,7 @@ class Rezeptionistin(object):
     logging.debug(msg)
 
   def geturlsfrommsg(self, message):
-    url = re.findall("(?P<url>https?://[^\s]+)", message)
+    url = re.findall("(?P<url>http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)", message)
     return url
 
   def getpage(self, url):
