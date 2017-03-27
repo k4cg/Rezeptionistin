@@ -2,49 +2,51 @@ from plugin import Plugin
 
 class Urls(Plugin):
 
-def help_text(self, bot):
-    return (bot.translate("url_help") + "\n" + bot.translate("url_help2"))
+    def help_text(self, bot):
+        return (bot.translate("url_help") + "\n" + bot.translate("url_help2"))
 
-def on_msg(self, bot, user_nick, host, channel, message):
-    ms = message.lower()
+    def on_msg(self, bot, user_nick, host, channel, message):
+        ms = message.lower()
 
-    if bot.httpregex.search(ms) is None:
-        return False
+        if bot.httpregex.search(ms) is None:
+            return False
 
-    # extract list of arrays from message
-    urls = bot.geturlsfrommsg(message)
+        # extract list of arrays from message
+        urls = bot.geturlsfrommsg(message)
 
-    # loop through all items
-    for url in urls:
+        # loop through all items
+        for url in urls:
 
-        # fetch html <title> element
-        title = bot.sanitize(bot.geturltitle(url))
+            # fetch html <title> element
+            title = bot.sanitize(bot.geturltitle(url))
 
-        # Check if link can be added to wiki
-        if not ms.startswith('!private') and not ms.startswith('!pr') and not ms.startswith('!nsfw'):
+            # Check if link can be added to wiki
+            if not ms.startswith('!private') and not ms.startswith('!pr') and not ms.startswith('!nsfw'):
 
-            # Set proper wikititle
+                # Set proper wikititle
+                if title == "":
+                    wikititle = url
+                else:
+                    wikititle = title
+
+                # call bot and paste to wiki
+                bot.get_plugin("MediaWiki").wikiupdate(wikititle, url)
+
+            # If empty title, dont paste to irc
             if title == "":
-                title = url
+                continue
 
-            # call bot and paste to wiki
-            bot.get_plugin("MediaWiki").wikiupdate(wikititle, url)
+            # check if private link
+            if ms.startswith('!private') or ms.startswith('!pr'):
+                bot.send_message(channel, "[private] " + "Title: {title}".format(title=title), user_nick)
 
-        # If empty title, dont paste to irc
-        if title == "":
-            continue
+            # check if link was marked as nsfw from sender
+            elif ms.startswith('!nsfw'):
+                bot.send_message(channel, "[nsfw] " + "Title: {title}".format(title=title), user_nick)
 
-        # check if private link
-        if ms.startswith('!private') or ms.startswith('!pr'):
-            bot.send_message(channel, "[private] " + "Title: {title}".format(title=title), user_nick)
-
-        # check if link was marked as nsfw from sender
-        elif ms.startswith('!nsfw'):
-            bot.send_message(channel, "[nsfw] " + "Title: {title}".format(title=title), user_nick)
-
-        # send title to
-        else:
-            bot.send_message(channel, "Title: {title}".format(title=title), user_nick)
+            # send title to
+            else:
+                bot.send_message(channel, "Title: {title}".format(title=title), user_nick)
 
 
 
