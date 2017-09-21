@@ -23,4 +23,4 @@ class Status(Plugin):
           hosts = str(msg['online'])
           door = str(msg['hservierer']['door'])
 
-          bot.send_message(channel, bot.translate("status_str1").format(noise=noise, temp=temp, light=light, hosts=hosts), user_nick)
+          bot.send_message(channel, bot.translate("status_str1").format(noise=noise, temp=temp, light=light, hosts=hosts, door=door), user_nick)
