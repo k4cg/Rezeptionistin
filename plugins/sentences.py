@@ -21,7 +21,8 @@ class Sentences(Plugin):
     super(Sentences, self).__init__()
 
   def get_markov_sentence(self):
-    return self.markov_model.make_short_sentence(140)
+    l = random.randint(50,120)
+    return self.markov_model.make_short_sentence(l)
 
   def on_msg(self, bot, user_nick, host, channel, message):
     if bot.nick.lower() in message.lower():
