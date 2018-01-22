@@ -21,7 +21,7 @@ class Sentences(Plugin):
     super(Sentences, self).__init__()
 
   def get_markov_sentence(self):
-    l = random.randint(50,120)
+    l = random.randint(80,120)
     return self.markov_model.make_short_sentence(l)
 
   def on_msg(self, bot, user_nick, host, channel, message):
