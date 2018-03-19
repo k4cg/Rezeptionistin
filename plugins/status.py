@@ -18,7 +18,7 @@ class Status(Plugin):
           bot.send_message(channel, bot.translate("status_error"), user_nick)
         else:
           noise = str(msg['sound'])
-          temp = str(msg['temp'])
+          temp = str(msg['temperature'])
           light = str(msg['light'])
           hosts = str(msg['online'])
           door = str(msg['door'])
