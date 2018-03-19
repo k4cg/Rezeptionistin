@@ -21,6 +21,6 @@ class Status(Plugin):
           temp = str(msg['temp'])
           light = str(msg['light'])
           hosts = str(msg['online'])
-          door = str(msg['hservierer']['door'])
+          door = str(msg['door'])
 
           bot.send_message(channel, bot.translate("status_str1").format(noise=noise, temp=temp, light=light, hosts=hosts, door=door), user_nick)
