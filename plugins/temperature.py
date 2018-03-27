@@ -23,7 +23,7 @@ class Temperature(Plugin):
     if msg is None:
       return None
     else:
-      return str(msg['temp'])
+      return str(msg['temperature'])
 
   def get_outdoor_temp(self, bot):
     f = urllib2.urlopen(self.wunderground)
