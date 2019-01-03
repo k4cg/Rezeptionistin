@@ -14,7 +14,12 @@ class Open(Plugin):
   def on_msg(self, bot, user_nick, host, channel, message):
     if message.startswith("!offen") or message.startswith("!open"):
         msg = bot.get_spacestatus_data()
-        wifi = msg['online']
+
+        try:
+            wifi = msg['online']
+        except:
+            wifi = 0
+
         door = str(msg['hservierer']['door'])
 
         if int(wifi) > 0 and door == 'open':
