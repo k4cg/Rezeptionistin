@@ -23,4 +23,4 @@ class MediaWiki(Plugin):
     date = now.strftime("%Y-%m-%d %H:%M")
     cat = category.Category(self.site, "Linklist")
     for article in cat.getAllMembersGen(namespaces=[0]):
-      print article.edit(appendtext="\n* {title} - {url} ({date}) \n".format(title=title, url=url, date=date))
+      print article.edit(appendtext="\n* {title} - {url} ({date}) \n".format(title=title, url=url, date=date), bot=True)
