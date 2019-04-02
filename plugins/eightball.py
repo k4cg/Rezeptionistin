@@ -6,7 +6,7 @@ class Eightball(Plugin):
     return bot.translate("eightball_help")
 
   def answer(self, bot, msg, recipient, nick=None):
-    keywords = ["kann ich", "darf ich", "soll ich", "muss ich"]
+    keywords = ["kann ich", "was kann ich", "wie kann ich", "darf ich", "was darf ich", "soll ich", "was soll ich", "wie soll ich", "muss ich", "was muss ich"]
     if any(msg.lower().startswith(k) for k in keywords):
       adressee = (nick + ": ") if nick else ""
 
