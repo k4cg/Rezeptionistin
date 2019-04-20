@@ -116,7 +116,7 @@ class Rezeptionistin(object):
   def getpage(self, url):
     try:
         req = urllib2.Request(url, headers={ 'User-Agent': self.useragent })
-        soup = BeautifulSoup(urllib2.urlopen(req),"html.parser")
+        soup = BeautifulSoup(urllib2.urlopen(req, timeout=3),"html.parser")
     except:
         soup = None
 
